@@ -135,6 +135,48 @@ Tests are located in `__tests__/api/tasks.test.js` and cover:
 - Error handling
 - Edge cases
 
+### Query Parameters (GET /api/tasks)
+
+- `status` - Filter by status (pending, in-progress, completed)
+- `priority` - Filter by priority (low, medium, high)
+- `search` - Search tasks by title (case-insensitive)
+- `sort` - Sort by (date, status)
+- `page` - Page number for pagination
+- `limit` - Items per page (default: 6, max: 100)
+
+## Architecture
+
+### Models (`models/`)
+- Define Mongoose schemas and models
+- Handle data validation at the schema level
+- Include pre/post hooks for data transformation
+
+### Controllers (`controllers/`)
+- Contain business logic
+- Handle request/response
+- Call models to interact with database
+- Use `next()` to pass errors to error handler
+
+### Routes (`routes/`)
+- Define API endpoints
+- Apply middleware (validation, authentication, etc.)
+- Map routes to controller functions
+
+### Middleware (`middleware/`)
+- **checkMongoConnection**: Ensures database is connected before processing requests
+- **validators**: Validates request data before reaching controllers
+- **errorHandler**: Centralized error handling
+
+### Config (`config/`)
+- Database connection logic
+- Environment configuration
+- Connection state management
+
+### Utils (`utils/`)
+- Constants and enums
+- Helper functions
+- Shared utilities
+
 ## Environment Variables
 
 | Variable | Description | Default |
